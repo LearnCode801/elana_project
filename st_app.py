@@ -10,9 +10,12 @@ from helper import get_llm, get_embeddings_model
 import sys
 import os
 
-# Use pysqlite3 as a drop-in replacement for sqlite3
-__import__('pysqlite3')
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+try:
+    __import__('pysqlite3')
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+except ImportError:
+    # Continue with system sqlite3 (may not work if version is too old)
+    pass
 
 def main():
     st.set_page_config(
