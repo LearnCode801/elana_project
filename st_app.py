@@ -7,6 +7,13 @@ from startup_chain import get_startup_data_chain
 from legal_chain import get_legal_data_chain
 from helper import get_llm, get_embeddings_model
 
+import sys
+import os
+
+# Use pysqlite3 as a drop-in replacement for sqlite3
+__import__('pysqlite3')
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 def main():
     st.set_page_config(
         page_title="LangChain Agent Assistant",
