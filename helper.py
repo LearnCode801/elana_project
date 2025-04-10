@@ -6,12 +6,20 @@ from langchain_community.vectorstores import Chroma
 
 
 load_dotenv()
-
 def get_embeddings_model():
+    # Explicitly set the device
+    device = "cpu"  # Use CPU as it's safer for compatibility
     embeddings = HuggingFaceEmbeddings(
-    model_name="sentence-transformers/all-mpnet-base-v2")
+        model_name="sentence-transformers/all-mpnet-base-v2",
+        model_kwargs={"device": device}
+    )
     print("\n [LOG] OK !! get_embeddings_model DONE \n")
     return embeddings
+# def get_embeddings_model():
+#     embeddings = HuggingFaceEmbeddings(
+#     model_name="sentence-transformers/all-mpnet-base-v2")
+#     print("\n [LOG] OK !! get_embeddings_model DONE \n")
+#     return embeddings
     
 
 def get_legal_data_vector_store_retriever(embedding):
